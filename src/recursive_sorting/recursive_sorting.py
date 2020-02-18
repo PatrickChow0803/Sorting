@@ -3,15 +3,37 @@ def merge( arrA, arrB ):
     elements = len( arrA ) + len( arrB )
     merged_arr = [0] * elements
     # TO-DO
-    
+    i = 0
+    j = 0
+    k = 0
+    while i <= elements:
+        if j < len(arrA) and k < len(arrB) and arrA[j] <= arrB[k]:
+            merged_arr[i] = arrA[j]
+            j += 1
+        elif j < len(arrA) and k < len(arrB) and arrA[j] > arrB[k]:
+            merged_arr[i] = arrB[k]
+            k += 1
+        elif j == len(arrA) and k < len(arrB):
+            merged_arr[i] = arrB[k]
+            k += 1
+        elif j < len(arrA) and k == len(arrB):
+            merged_arr[i] = arrA[j]
+            j += 1
+        i += 1
+
     return merged_arr
 
 
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort( arr ):
     # TO-DO
-
-    return arr
+    first_half = arr[0:(len(arr) // 2)]
+    second_half = arr[(len(arr) // 2): len(arr)]
+    if len(first_half) > 1:
+        first_half = merge_sort(first_half)
+    if len(second_half) > 1:
+        second_half = merge_sort(second_half)
+    return merge(first_half, second_half)
 
 
 # STRETCH: implement an in-place merge sort algorithm
@@ -20,7 +42,7 @@ def merge_in_place(arr, start, mid, end):
 
     return arr
 
-def merge_sort_in_place(arr, l, r): 
+def merge_sort_in_place(arr, l, r):
     # TO-DO
 
     return arr
