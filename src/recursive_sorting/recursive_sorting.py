@@ -3,12 +3,12 @@ def merge( arrA, arrB ):
     elements = len( arrA ) + len( arrB )
     merged_arr = [0] * elements # [] are used to create array literals.  This gives me multiple [0] to work with.
     # TO-DO
-    i = 0 # Cursor
-    j = 0
-    k = 0 # Cursor
+    i = 0 # Cursor for left array
+    j = 0 # Cursor for right array
+    k = 0 # Cursor for merged array
 
     # while left or right is not empty it will compare numbers until one side is empty
-    while i < len(arrA) and j < len(arrB) and k < elements:
+    while i < len(arrA) and j < len(arrB):
         if arrA[i] < arrB[j]:
             merged_arr[k] = arrA[i]
             i += 1
@@ -40,7 +40,7 @@ def merge_sort( arr ):
 
         # Splits array in half until the length of the array is 1
         half = round(len(arr) / 2)
-        return merge(merge_sort(arr[:int(half)]), merge_sort(arr[int(half): len(arr)]))
+        return merge(merge_sort(arr[:(half)]), merge_sort(arr[(half):]))
 
     else:
         return arr
