@@ -1,25 +1,34 @@
 # TO-DO: complete the helpe function below to merge 2 sorted arrays
 def merge( arrA, arrB ):
     elements = len( arrA ) + len( arrB )
-    merged_arr = [0] * elements
+    merged_arr = [0] * elements # [] are used to create array literals.  This gives me multiple [0] to work with.
     # TO-DO
-    i = 0
+    i = 0 # Cursor
     j = 0
-    k = 0
-    while i <= elements:
-        if j < len(arrA) and k < len(arrB) and arrA[j] <= arrB[k]:
-            merged_arr[i] = arrA[j]
+    k = 0 # Cursor
+
+    # while left or right is not empty it will compare numbers until one side is empty
+    while i < len(arrA) and j < len(arrB) and k < elements:
+        if arrA[i] < arrB[j]:
+            merged_arr[k] = arrA[i]
+            i += 1
+
+        else:
+            merged_arr[k] = arrB[j]
             j += 1
-        elif j < len(arrA) and k < len(arrB) and arrA[j] > arrB[k]:
-            merged_arr[i] = arrB[k]
-            k += 1
-        elif j == len(arrA) and k < len(arrB):
-            merged_arr[i] = arrB[k]
-            k += 1
-        elif j < len(arrA) and k == len(arrB):
-            merged_arr[i] = arrA[j]
-            j += 1
+        k += 1
+
+    # these two while loops are for grabbing the left elements on either the right side or left and adding it to the end
+    # of the merged_arr
+    while i < len(arrA):
+        merged_arr[k] = arrA[i]
         i += 1
+        k += 1
+
+    while j < len(arrB):
+        merged_arr[k] = arrB[j]
+        j += 1
+        k += 1
 
     return merged_arr
 
@@ -27,13 +36,14 @@ def merge( arrA, arrB ):
 # TO-DO: implement the Merge Sort function below USING RECURSION
 def merge_sort( arr ):
     # TO-DO
-    first_half = arr[0:(len(arr) // 2)]
-    second_half = arr[(len(arr) // 2): len(arr)]
-    if len(first_half) > 1:
-        first_half = merge_sort(first_half)
-    if len(second_half) > 1:
-        second_half = merge_sort(second_half)
-    return merge(first_half, second_half)
+    if len(arr) > 1:
+
+        # Splits array in half until the length of the array is 1
+        half = round(len(arr) / 2)
+        return merge(merge_sort(arr[:int(half)]), merge_sort(arr[int(half): len(arr)]))
+
+    else:
+        return arr
 
 
 # STRETCH: implement an in-place merge sort algorithm
